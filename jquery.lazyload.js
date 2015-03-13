@@ -27,6 +27,7 @@
             container       : window,
             data_attribute  : "original",
             skip_invisible  : true,
+            load_all	    : false,			//	when this is set to true, it will load all the images right away (basically behaves like we never used the lazyload)
             appear          : null,
             load            : null,
             placeholder     : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
@@ -40,6 +41,11 @@
                 if (settings.skip_invisible && !$this.is(":visible")) {
                     return;
                 }
+				if (settings.load_all) {
+					$this.trigger("appear");
+					/* if we found an image we'll load, reset the counter */
+					counter = 0;
+				}
                 if ($.abovethetop(this, settings) ||
                     $.leftofbegin(this, settings)) {
                         /* Nothing. */
